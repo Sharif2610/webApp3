@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+Update Workforce 
+{% endblock %}
+{% block content %}
+<h1 style="margin-top: 0px;"> Update Workforce </h1>
+<div style="display: flex; justify-content: center; margin-top: 50px; font-size: xx-large;">
+    <form method="POST" style="border: 1px solid black; padding: 20px; width: 400px; text-align: left;">
+        {% csrf_token %}
+
+        <label>WF No:</label><br>
+        <input type="number" value="{{ workforce.wfno }}" required style="width: 100%; font-size: x-large;"><br><br>
+
+        <label>Name:</label><br>
+        <input type="text" name="wfname" value="{{ workforce.wfname }}" required style="width: 100%; font-size: x-large;"><br><br>
+
+        <label>Salary:</label><br>
+        <input type="number" name="salary" value="{{ workforce.salary }}" required style="width: 100%; font-size: x-large;"><br><br>
+
+        <label>Department:</label><br>
+        <select name="deptno" required style="width: 100%; font-size: x-large;">
+            {% for dept in department %}
+                <option value="{{ dept.deptno }}"
+                    {% if dept.deptno == workforce.department.deptno %}
+                        selected
+                    {% endif %}
+                >
+                    {{ dept.deptname }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit" style="width: 100%; padding: 10px; font-size: x-large;">
+            Update Workforce
+        </button>
+    </form>
+</div>
+{% endblock %}

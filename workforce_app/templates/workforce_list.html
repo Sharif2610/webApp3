@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}
+WorkForce List
+{% endblock %}
+{% block content %}
+<div>
+    <h1> WorkForce Members </h1>
+    <a href="{% url 'logout' %}" style="background-color: red; color: white;padding: 8px 15px; text-decoration: none; border-radius: 5px; " onclick="return confirm('Are you sure to 🔐Logout?.');"> 🔐Logout </a>
+    <p style="margin: 20px;">
+        <a href="{% url 'insert_workforce' %}" style="background-color: #3498db;"> Add WorkForce </a></p>
+    <table border="1" cellpadding="20">
+        <tr style="font-size: x-large;">
+            <th>WF NO</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        {% for wf in workforce %}
+        <tr style="font-size: x-large;">
+            <td>{{wf.wfno}}</td>
+            <td>{{wf.wfname}}</td>
+            <td>{{wf.salary}}</td>
+            <td>{{wf.department.deptname}}</td>
+            <td>
+                <a href="{% url 'update_workforce' wf.wfno %}">Edit</a>     |
+                <a href="{% url 'delete_workforce' wf.wfno %}" onclick="return confirm('Are you sure want to delete this person');">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No WorkForce Found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href="{% url 'home' %}">Back to🏠 page.</a></p>
+</div>
+<div style="text-align:center; margin-top:15px;">
+    {% if workforce.has_previous %}
+        <a href="?page={{ workforce.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    Page {{ workforce.number }} of {{ workforce.paginator.num_pages }}
+
+    {% if workforce.has_next %}
+        <a href="?page={{ workforce.next_page_number }}">Next</a>
+    {% endif %}
+</div>
+{% endblock %}

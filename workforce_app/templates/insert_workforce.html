@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Workforce
+{% endblock %}
+{% block content %} 
+<h1 style="margin-top: 0px;"> Add Workforce </h1>
+<div style="display: flex; justify-content: center; margin-top: 50px; font-size: xx-large; width: 30vw;" >
+    <form method="POST" style="border: 1px solid black; padding: 20px; width: 400px; text-align: left;">
+        {% csrf_token %}
+
+        <label>WF No:</label><br>
+        <input type="number" name="wfno" required style="width: 100%; font-size: x-large;"><br><br>
+
+        <label>Name:</label><br>
+        <input type="text" name="wfname" required style="width: 100%; font-size: x-large;"><br><br>
+
+        <label>Salary:</label><br>
+        <input type="number" name="salary" required style="width: 100%; font-size: x-large;"><br><br>
+
+        <label>Department:</label><br>
+        <select name="deptno" required style="width: 100%; font-size: x-large;">
+            <option value="">Select Department</option>
+            {% for dept in department %}
+                <option value="{{ dept.deptno }}">{{ dept.deptname }}</option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit" style="width: 100%; padding: 10px; font-size: x-large;">Add Workforce</button>
+    </form>
+</div>
+{% endblock %}

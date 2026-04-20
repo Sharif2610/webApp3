@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>API Page.</title>
+        <script src="http://cdn.delivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>This results are from API.</h1>
+        <table border="1" id="tabledata">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>PHONE</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <script>
+                axios.get('http://127.0.0.1:8000/students/show/')
+                .then((resp)=>{
+                    const data = resp.data;
+                    const tb = document.querySelector('#tabledata tbody');
+                    data.forEach(student =>{
+                        const row = `
+                            <tr>
+                                <td>${student.id}</td>
+                                <td>${student.name}</td>
+                                <td>${student.email}</td>
+                                <td>${student.phone}</td>
+                            </tr>
+                    `;
+                    tb.innerHTML += row;
+                    });
+                }).catch((error)=>{
+                    console.log(error);
+                })
+            </script>
+        </table>
+    </body>
+</html>
