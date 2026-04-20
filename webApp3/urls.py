@@ -15,15 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("🚀 Django is LIVE on Railway!")
 
 urlpatterns = [
+    path('', home),  # 👈 FIXED HOME PAGE
     path('admin/', admin.site.urls),
-    path('hello/',include('firstapp.urls')),
-    path('clients/',include('clients.urls')),
-    path('core',include('core.urls')),
-    path('workforce/',include('workforce_app.urls')),
-    path('factory/',include('Factory.urls')),
-    path('employees/',include('employees.urls')),
-    path('students/',include('students.urls')),
+    path('hello/', include('firstapp.urls')),
+    path('clients/', include('clients.urls')),
+    path('core/', include('core.urls')),
+    path('workforce/', include('workforce_app.urls')),
+    path('factory/', include('Factory.urls')),
+    path('employees/', include('employees.urls')),
+    path('students/', include('students.urls')),
 ]
